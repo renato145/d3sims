@@ -1,12 +1,16 @@
-import { scaleQuantile } from 'd3';
+import { range, scaleQuantile } from 'd3';
 
 const batteryScale = scaleQuantile()
   .domain([0,100])
-  .range(['red', 'yellow', 'green']);
+  .range(['red', 'orange', 'yellow', 'green']);
 
 export const drawBattery = (selection, props) => {
   const { batteryLevel, width, height } = props;
   const rectHeight = height*0.93;
+  const barsPadding = 10;
+  const barsHeight = rectHeight*0.95;
+  const oneBarHeight = (barsHeight - barsPadding*9) / 10
+  const chargeColor = batteryScale(batteryLevel);
 
   selection.selectAll('rect').data([null]).enter()
     .append('rect')
@@ -20,5 +24,17 @@ export const drawBattery = (selection, props) => {
       .attr('y', height)
     .merge(text)
       .text(`${batteryLevel}%`)
-      .attr('fill', batteryScale(batteryLevel));
+      .attr('fill', chargeColor);
+
+  const barsData = range(Math.round(batteryLevel / 10)).map(d => ({n: d}) );
+  const bars = selection.selectAll('.battery-bars').data(barsData);
+  bars.enter().append('rect')
+      .attr('class', 'battery-bars')
+      .attr('x', barsPadding)
+      .attr('height', oneBarHeight)
+      .attr('width', width - barsPadding*2)
+    .merge(bars)
+      .attr('y', (d,i) => barsHeight - barsPadding*(i+1) - oneBarHeight*i)
+      .style('fill', chargeColor);
+  bars.exit().remove();
 };

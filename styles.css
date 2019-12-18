@@ -19,6 +19,11 @@ text {
     font-size: 1.2em;
     font-weight: bold;
     text-anchor: middle;
-    stroke: rgb(105, 105, 105);
-    stroke-width: 0.3px;
+    stroke: rgb(100, 100, 100);
+    stroke-width: 0.4px;
+}
+
+.battery-container .battery-bars {
+    stroke: gray;
+    stroke-width: 1px;
 }
