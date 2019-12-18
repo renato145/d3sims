@@ -3,6 +3,10 @@ body {
     overflow: hidden;
 }
 
+text {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .background {
     fill: rgb(202, 202, 202);
 }
@@ -15,4 +19,6 @@ body {
     font-size: 1.2em;
     font-weight: bold;
     text-anchor: middle;
+    stroke: rgb(105, 105, 105);
+    stroke-width: 0.3px;
 }
