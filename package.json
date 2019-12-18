@@ -1,0 +1,29 @@
+{
+  "name": "d3sims",
+  "version": "0.1.0",
+  "description": "Playing with simulations and d3",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renato145/d3sims.git"
+  },
+  "keywords": [],
+  "author": "Renato Hermoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renato145/d3sims/issues"
+  },
+  "homepage": "https://github.com/renato145/d3sims#readme",
+  "devDependencies": {
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "d3": "^5.14.2"
+  }
+}
