@@ -1,0 +1,18 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+.background {
+    fill: rgb(202, 202, 202);
+}
+
+.battery-container rect {
+    fill: rgb(97, 97, 97);
+}
+
+.battery-container text {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-anchor: middle;
+}
