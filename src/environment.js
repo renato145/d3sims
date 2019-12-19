@@ -23,7 +23,7 @@ export const drawEnvironment = (selection, props) => {
   batteryEnter.merge(battery)
       .call(drawBattery, {
         batteryLevel,
-        width: innerWidth*0.2,
+        width: innerWidth*0.15,
         height: innerHeight*0.7
       });
 

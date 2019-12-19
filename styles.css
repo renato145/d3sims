@@ -16,11 +16,11 @@ text {
 }
 
 .battery-container text {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.7em;
+    font-weight: 1000;
     text-anchor: middle;
     stroke: rgb(100, 100, 100);
-    stroke-width: 0.4px;
+    stroke-width: 0.8px;
 }
 
 .battery-container .battery-bars {
