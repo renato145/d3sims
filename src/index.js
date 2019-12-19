@@ -18,6 +18,7 @@ export const setBatteryLevel = level => {
   render();
 };
 
-[100,80,60,25,10].map( (d,i) => {
+// [100,80,60,25,10,50,88,5,23,1,100,1,100,55].map( (d,i) => {
+[100,0,50].map( (d,i) => {
   setTimeout(() => setBatteryLevel(d), i*frequency);
 });
