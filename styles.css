@@ -1,11 +1,25 @@
 body {
-    margin: 0px;
+    margin: 10px;
     overflow: hidden;
-}
-
-text {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.socketStatus {
+    margin: 0px;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.connected {
+    color: rgb(0, 223, 37);
+}
+
+.disconnected {
+    color: red;
+}
+
+/* text {
+} */
 
 .background {
     fill: rgb(239, 239, 239);
