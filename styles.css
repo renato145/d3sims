@@ -4,14 +4,14 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.socketStatus {
+.status {
     margin: 0px;
     margin-left: 30px;
     font-weight: bold;
 }
 
 .connected {
-    color: rgb(0, 223, 37);
+    color: rgb(32, 148, 51);
 }
 
 .disconnected {

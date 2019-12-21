@@ -3,7 +3,8 @@ import { drawEnvironment } from './environment';
 import { initSocket } from './socket';
 
 const svg = select('svg');
-export const socketStatus = select('.socketStatus').select('span');
+export const socketStatus = select('#socketStatus');
+export const pythonClient = select('#pythonClient');
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 const margin = 10;
@@ -27,5 +28,7 @@ export const setBatteryLevel = level => {
 
 // Socket connection
 export const socket = initSocket(socketStatus, {
-  'uri': 'ws://localhost:8000/ws'
+  'uri': 'ws://localhost:8000/ws',
+  pythonClient,
+  setBatteryLevel
 });
