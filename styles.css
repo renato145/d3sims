@@ -1,13 +1,20 @@
 body {
     margin: 10px;
     overflow: hidden;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:  Arial;
 }
 
 .status {
     margin: 0px;
     margin-left: 30px;
+    font-size: 0.9em;
+    font-family: sans-serif;
     font-weight: bold;
+}
+
+.status p {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .connected {
