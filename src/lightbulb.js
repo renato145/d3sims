@@ -1,40 +1,53 @@
-// width: 343
-// height: 489
+import { select, min } from "d3";
+
 const lightbulbPath = {
     'classic': {
-        'bulb': 'M416.321,171.943c0-97.8-82.2-176.9-181-171.7c-89.5,5.2-160.3,79.1-162.4,168.6c0,44.7,16.6,86.3,45.8,118.6 \
-            c47.7,51.1,41.6,110.3,41.6,110.3c0,11.4,9.4,20.8,20.8,20.8h126.9c11.4,0,20.8-9.4,21.8-20.8c0,0-7-57.7,40.6-109.2 \
-            C399.621,257.243,416.321,215.643,416.321,171.943z M288.321,377.943h-87.4c-2.1-42.7-20.8-84.3-51-116.5 \
-            c-22.9-25-34.3-57.2-34.3-90.5c1-68.7,54.1-124.8,122.8-129c74.9-4.2,137.3,56.2,137.3,130c0,32.3-12.5,64.5-35.4,88.4 \
-            C309.121,293.643,290.421,335.243,288.321,377.943z',
-        'extra': 'M281.021,447.643h-73.9c-11.4,0-20.8,9.4-20.8,20.8s9.4,20.8,20.8,20.8h73.9c11.4,0,20.8-9.4,20.8-20.8 \
-            C301.821,457.043,292.521,447.643,281.021,447.643z'
+        'bulbPath': 'M247.248 123.799C247.248 53.3826 188.064 -3.56938 116.928 0.174621C52.488 3.91862 1.512 57.1266 0 121.567C0 153.751 11.952 183.703 32.976 206.959C67.32 243.751 62.928 286.375 62.928 286.375C62.928 294.583 69.696 301.351 77.904 301.351L169.272 301.351C177.48 301.351 184.248 294.583 184.968 286.375C184.968 286.375 179.928 244.831 214.2 207.751C235.224 185.215 247.248 155.263 247.248 123.799Z',
+        'extraPath': 'M94.7 0L20.8 0C9.4 0 0 9.4 0 20.8C0 32.2 9.4 41.6 20.8 41.6L94.7 41.6C106.1 41.6 115.5 32.2 115.5 20.8C115.5 9.4 106.2 0 94.7 0Z',
+        'width': 441,
+        'height': 441,
+        'extraX': 68,
+        'extraY': 307,
+        'className': 'classic-bulb'
     }
 };
-{/* <g>
-    <g>
-        <path d="M416.321,171.943c0-97.8-82.2-176.9-181-171.7c-89.5,5.2-160.3,79.1-162.4,168.6c0,44.7,16.6,86.3,45.8,118.6
-            c47.7,51.1,41.6,110.3,41.6,110.3c0,11.4,9.4,20.8,20.8,20.8h126.9c11.4,0,20.8-9.4,21.8-20.8c0,0-7-57.7,40.6-109.2
-            C399.621,257.243,416.321,215.643,416.321,171.943z M288.321,377.943h-87.4c-2.1-42.7-20.8-84.3-51-116.5
-            c-22.9-25-34.3-57.2-34.3-90.5c1-68.7,54.1-124.8,122.8-129c74.9-4.2,137.3,56.2,137.3,130c0,32.3-12.5,64.5-35.4,88.4
-            C309.121,293.643,290.421,335.243,288.321,377.943z"/>
-        <path d="M281.021,447.643h-73.9c-11.4,0-20.8,9.4-20.8,20.8s9.4,20.8,20.8,20.8h73.9c11.4,0,20.8-9.4,20.8-20.8
-            C301.821,457.043,292.521,447.643,281.021,447.643z"/>
-    </g>
-</g> */}
 
 export const drawLightbulb = ( selection, props ) => {
-  const { type } = props;
+  const { type, size, x, y, isOn } = props;
+  const { bulbPath, extraPath, width, height, extraX, extraY, className } = lightbulbPath[type];
+  const scale = size / min([width, height]);
 
+  // Position
+  selection
+      .attr('transform', `translate(${x}, ${y})`);
+
+  // Draw lightbulb
   const lightbulb = selection.selectAll('.lightbulb').data([null]);
   const lightbulbEnter = lightbulb.enter().append('path')
-      .attr('class', 'lightbulb')
-      .attr('d', lightbulbPath[type]['bulb']);
+      .attr('class', `lightbulb ${className}`)
+      .attr('d', bulbPath)
+      .style('opacity', 0)
+      .style('fill-opacity', 0);
+  lightbulbEnter.merge(lightbulb)
+    .transition().duration(() => {
+      return isOn | (lightbulbEnter.size()>0) ? 400 : 25;
+    })
+      .style('opacity', 1)
+      .style('fill-opacity', isOn ? 1 : 0);
 
   // Draw extras
-  selection.selectAll('.lightbulb-extra').data([null]).enter()
+  const extrasEnter = selection.selectAll('.lightbulb-extra').data([null]).enter()
     .append('path')
       .attr('class', 'lightbulb-extra')
-      .attr('d', lightbulbPath[type]['extra']);
+      .attr('d', extraPath)
+      .attr('transform', `translate(${scale*extraX}, ${scale*extraY})`);
+
+  // Set scale
+  [lightbulbEnter, extrasEnter].map(o => {
+      o.attr('transform', d => {
+        const tfm = o.attr('transform');
+        return `${tfm === null ? '' : tfm} scale(${scale}) translate(0, ${-height*scale/2})`
+      });
+  });
 
 };

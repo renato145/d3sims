@@ -1,5 +1,11 @@
 export const initSocket = ( selection, props ) => {
-  const { uri, pythonClient, setBatteryLevel } = props;
+  const {
+    uri,
+    pythonClient,
+    setBatteryLevel,
+    setBulbState,
+    flipBulb
+  } = props;
   const socket = new WebSocket(uri);
   let closeMessage = '';
 
@@ -8,7 +14,6 @@ export const initSocket = ( selection, props ) => {
     selection
         .attr('class', 'connected')
         .text('Connected');
-    socket.send(JSON.stringify({event: 'getPythonClientStatus'}));
   };
 
   socket.onmessage = event => {
@@ -25,8 +30,13 @@ export const initSocket = ( selection, props ) => {
             .text(msg.msg);
         break;
       case 'setBatteryLevel':
-          console.log(msg.msg);
           setBatteryLevel(msg.msg);
+          break;
+      case 'setBulbState':
+          setBulbState(msg.msg);
+          break;
+      case 'flipBulb':
+          flipBulb();
           break;
       default:
         console.log(`Invalid event: ${msg.event}.`)

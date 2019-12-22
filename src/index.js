@@ -8,12 +8,13 @@ export const pythonClient = select('#pythonClient');
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 const margin = 10;
-let batteryLevel;
+let batteryLevel = 100;
+let bulbIsOn = false;
 const frequency = 1000;
 
 // general update pattern
 const render = () => {
-  drawEnvironment(svg, { width, height, margin, batteryLevel });
+  drawEnvironment(svg, { width, height, margin, batteryLevel, bulbIsOn });
 };
 
 export const setBatteryLevel = level => {
@@ -21,14 +22,30 @@ export const setBatteryLevel = level => {
   render();
 };
 
+export const setBulbState = state => {
+  if ( state !== bulbIsOn) {
+    bulbIsOn = state;
+    render();
+  }
+};
+
+export const flipBulb = () => {
+  bulbIsOn = !bulbIsOn;
+  render();
+};
+
 // initial Example
-[100,80,20].map( (d,i) => {
-  setTimeout(() => setBatteryLevel(d), i*frequency);
-});
+// [100,80,20].map( (d,i) => {
+//   setTimeout(() => setBatteryLevel(d), i*frequency);
+// });
+
+render();
 
 // Socket connection
 export const socket = initSocket(socketStatus, {
   'uri': 'ws://localhost:8000/ws',
   pythonClient,
-  setBatteryLevel
+  setBatteryLevel,
+  setBulbState,
+  flipBulb
 });

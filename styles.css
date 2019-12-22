@@ -48,3 +48,15 @@ body {
     stroke: gray;
     stroke-width: 1px;
 }
+
+.classic-bulb {
+    fill: yellow;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.lightbulb-extra {
+    fill: rgb(167, 167, 167);
+    stroke: black;
+    stroke-width: 2px;
+}
