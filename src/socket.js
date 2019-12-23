@@ -47,6 +47,9 @@ export const initSocket = ( selection, props ) => {
     selection
         .attr('class', 'disconnected')
         .text('Disconnected' + closeMessage);
+    pythonClient
+        .attr('class', 'disconnected')
+        .text('Offline');
   };
 
   return socket
